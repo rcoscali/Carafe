@@ -17,16 +17,27 @@
  *
  */
 
+// For exit
 #include <stdlib.h>
 
+// For cout/cerr
 #include <iostream>
 
+// Carafe object interface
 #include "carafe.h"
 
+// The two carafe objects
 Carafe c1(7);
 Carafe c2(4);
+
+// The goal to reach
 int but = 5;
 
+/**
+ * help 
+ *
+ * Display an help message
+ */
 void
 help(void)
 {
@@ -55,24 +66,40 @@ help(void)
   std::cout << "    >Let's go ...\n\n";
 }
 
+/**
+ * cmderror
+ *
+ * Display invalid command error
+ */
 void
 cmderror ()
 {
   std::cerr << "** Invalid command\n";
 }
 
+/**
+ * main
+ * 
+ * Program entry function
+ * Implement the main loop, handling commands using the carafe objects
+ */
 int
 main (int argc, char *argv[])
 {
+  // User command entry
   char choix [4];
 
+  // Setup carafe indices
   c1.m_index = 1;
   c2.m_index = 2;
 
+  // Display help
   help ();
 
+  // Main loop
   while (true)
     {
+      // Display carafe status
       std::cout << "Carafe #1: "
                 << c1.contenu () << "l / "
                 << c1.capacite () << "l     "
@@ -81,13 +108,16 @@ main (int argc, char *argv[])
                 << c2.capacite () << "l "
                 << "[goal is to reach " << but
                 << "l in any carafe]" << std::endl;
+
+      // Check if goal has been reached
       if (c1.contenu () == but || c2.contenu () == but)
         break;
 
+      // Ask for cmd
       std::cout << "Choix ? ";
       std::cin >> choix;
 
-      // Handle command
+      // Init command handling
       Carafe *src = (Carafe*)NULL;
       Carafe *tgt = (Carafe*)NULL;
 
@@ -98,8 +128,10 @@ main (int argc, char *argv[])
       src = (choix[1] ? (choix[1] == '1' ? &c1 : (choix[1] == '2' ? &c2 : (Carafe*)NULL)) : (Carafe*)NULL);
       tgt = (choix[2] ? (choix[2] == '1' ? &c1 : (choix[2] == '2' ? &c2 : (Carafe*)NULL)) : (Carafe*)NULL);
 
+      // According to command
       switch (choix[0])
         {
+          // Help/Aide
         case 'A':
         case 'H':
           if (choix[1] != 0)
@@ -109,7 +141,7 @@ main (int argc, char *argv[])
           help ();
           break;
 
-          // Fill command
+          // Fill/Remplir command
         case 'R':
         case 'F':
           if (choix[2] != 0)
@@ -126,7 +158,7 @@ main (int argc, char *argv[])
             }
           break;
 
-          // Empty command
+          // Empty/Vider command
         case 'V':
         case 'E':
           if (choix[2] != 0)
@@ -143,7 +175,7 @@ main (int argc, char *argv[])
             }
           break;
 
-          // Transfer command
+          // Transfer/Transvaser command
         case 'T':
           if (choix[3] != 0)
             std::cerr << "Warning !  don't know how to handle extra '"
@@ -159,6 +191,7 @@ main (int argc, char *argv[])
             }
           break;
 
+          // Kill/Quitter command
         case 'Q':
         case 'K':
           if (choix[1] != 0)
@@ -168,11 +201,15 @@ main (int argc, char *argv[])
           std::cout << "Bye bye !\n";
           exit (0);
 
+          // Unknown command
         default:
           std::cout << "Unknown command '" << choix << "'" << std::endl;
         }
     }
+
+  // Goal reached
   std::cout << "Bravo !" << std::endl;
 
+  // The End
   return (0);
 }

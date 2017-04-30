@@ -17,20 +17,85 @@
  *
  */
 
+#ifndef __CARAFE_H_
+#define __CARAFE_H_
+
+/**
+ * Carafe
+ *
+ * Object modeling a carafe containing a liquid and having 
+ * a specific capacity.
+ */
 class Carafe
 {
  public:
+
+  /**
+   * Constructor
+   *
+   * @param capacity the carafe capacity
+   */
   Carafe (int);
-  void remplir ();
-  void vider ();
+
+  /**
+   * Filling method
+   */
+  void remplir (void);
+
+  /**
+   * Emptying method
+   */
+  void vider (void);
+
+  /**
+   * Transfering method
+   *
+   * @param une_carafe The target carafe in which to transfer liquid
+   */
   void transvaserDans (Carafe&);
-  int contenu () const;
-  int capacite () const;
-  bool is_empty () const;
+
+  /**
+   * content accessor
+   *
+   * @return an integer being the actual content quantity in liter
+   */
+  int contenu (void) const;
+
+  /**
+   * capacity accessor
+   *
+   * @return an integer being the capacity in liter
+   */
+  int capacite (void) const;
+
+  /**
+   * is_empty status
+   *
+   * @return true is the carafe is empty (content == 0)
+   * @return false otherwise
+   */
+  bool is_empty (void) const;
+
+  /**
+   * is_full status
+   *
+   * @return true if the carafe is full (content == capacity)
+   * @return false otherwise
+   */
   bool is_full () const;
+
+  /**
+   * public index of the carafe
+   */
   int m_index;
+  
  private:
+
+  // the content in liter
   int m_contenu;
+
+  // the capacity in liter
   int m_capacite;
 };
 
+#endif /* __CARAFE_H_ */
