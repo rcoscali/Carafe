@@ -33,8 +33,8 @@ help(void)
 {
   std::cout << "** Carafe game !\n\n";
   std::cout << "    >You have two carafes: carafe1 and carafe2.\n";
-  std::cout << "      - carafe1 has a " << c1.capacite() << " liters capacity.\n";
-  std::cout << "      - carafe2 has a " << c2.capacite() << " liters capacity.\n\n";
+  std::cout << "      - carafe1 has a " << c1.capacite () << " liters capacity.\n";
+  std::cout << "      - carafe2 has a " << c2.capacite () << " liters capacity.\n\n";
   std::cout << "    >You may Fill (command 'f'/'r') or Empty (command 'e'/'v') carafes.\n\n";
   std::cout << "    >You may also transfer water from one carafe to another\n";
   std::cout << "     with the command 't': 't<src><tgt>' with <src> & <tgt>\n";
@@ -57,32 +57,32 @@ help(void)
 }
 
 void
-cmderror()
+cmderror ()
 {
   std::cerr << "** Invalid command\n";
 }
 
 int
-main(int argc, char *argv[])
+main (int argc, char *argv[])
 {
   char choix [4];
 
   c1.m_index = 1;
   c2.m_index = 2;
 
-  help();
+  help ();
 
   while (true)
     {
       std::cout << "Carafe #1: "
-                << c1.contenu() << "l / "
-                << c1.capacite() << "l     "
+                << c1.contenu () << "l / "
+                << c1.capacite () << "l     "
                 << "Carafe #2: "
-                << c2.contenu() << "l / "
-                << c2.capacite() << "l "
+                << c2.contenu () << "l / "
+                << c2.capacite () << "l "
                 << "[goal is to reach " << but
                 << "l in any carafe]" << std::endl;
-      if (c1.contenu() == but || c2.contenu() == but)
+      if (c1.contenu () == but || c2.contenu () == but)
         break;
 
       std::cout << "Choix ? ";
@@ -107,7 +107,7 @@ main(int argc, char *argv[])
             std::cerr << "Warning !  don't know how to handle extra '"
                       << &choix[1] << "' after <" << choix[0]
                       << ">!\n";
-          help();
+          help ();
           break;
 
           // Fill command
@@ -118,12 +118,12 @@ main(int argc, char *argv[])
                       << &choix[2] << "' after <" << choix[0] << choix[1]
                       << ">!\n";
           if (!src)
-            cmderror();
+            cmderror ();
 
           else
             {
               std::cout << "Filing carafe #" << src->m_index << "\n";
-              src->remplir();
+              src->remplir ();
             }
           break;
 
@@ -135,12 +135,12 @@ main(int argc, char *argv[])
                       << &choix[2] << "' after <" << choix[0] << choix[1]
                       << ">!\n";
           if (!src)
-            cmderror();
+            cmderror ();
 
           else
             {
               std::cout << "Emptying carafe #" << src->m_index << "\n";
-              src->vider();
+              src->vider ();
             }
           break;
 
@@ -151,12 +151,12 @@ main(int argc, char *argv[])
                       << &choix[3] << "' after <" << choix[0] << choix[1] << choix[2]
                       << ">!\n";
           if (!src && !tgt)
-            cmderror();
+            cmderror ();
           else
             {
               std::cout << "Transfer carafe #" << src->m_index
                         << " content in carafe #" << tgt->m_index << "\n";
-              src->transvaserDans(*tgt);
+              src->transvaserDans (*tgt);
             }
           break;
 
@@ -167,7 +167,7 @@ main(int argc, char *argv[])
                       << &choix[1] << "' after <" << choix[0]
                       << ">!\n";
           std::cout << "Bye bye !\n";
-          exit(0);
+          exit (0);
 
         default:
           std::cout << "Unknown command '" << choix << "'" << std::endl;
